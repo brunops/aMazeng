@@ -1,4 +1,4 @@
-var _ = require('underscore');
+// var _ = require('underscore');
 
 var WALLS = {
   0: 'TOP',
@@ -123,6 +123,4 @@ Maze.prototype.dfs = function(row, col) {
 Maze.prototype.getRandomOrder = function() {
   return _.shuffle([0, 1, 2, 3]);
 };
-
-
 

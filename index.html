@@ -3,11 +3,43 @@
   <meta charset="UTF-8">
   <title>Document</title>
 
-  <script src=""></script>
+  <script src="js/lib/jquery.js"></script>
+  <script src="js/lib/underscore.js"></script>
+  <script src="js/maze.js"></script>
 </head>
 <body>
 
 
+  <script>
+
+  $(function() {
+    var size = 10;
+    var mazeModel = new Maze(size);
+    var maze = $('<table class="maze"></table>');
+
+    for (var i = 0; i < size; ++i) {
+      var row = $('<tr></tr>');
+
+      for (var j = 0; j < size; ++j) {
+        var cell  = $('<td></td>');
+
+        _.each(mazeModel.maze[i][j].walls, function(val, key) {
+          if (val) {
+            cell.addClass(key.toLowerCase());
+          }
+        });
+
+        row.append(cell);
+      }
+
+      maze.append(row);
+    }
+
+    $('body').append(maze);
+
+  });
+
+  </script>
 
 </body>
 </html>
