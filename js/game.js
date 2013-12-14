@@ -3,19 +3,19 @@ function Game() {
 }
 
 Game.prototype.init = function() {
-  this.mazeSize = 20;
-  this.maze = new Maze(this.mazeSize);
-
-
-  this.bindEvents();
-
-
   this.keyCodes = {
     top:    38,
     right:  39,
     bottom: 40,
     left:   37
   };
+
+  this.mazeSize = 20;
+
+  this.playerMaze = new Maze(this.mazeSize);
+  this.enemyMaze = new Maze(this.mazeSize);
+
+  this.bindEvents();
 };
 
 Game.prototype.bindEvents = function() {
@@ -25,16 +25,16 @@ Game.prototype.bindEvents = function() {
 Game.prototype.handlePlayerMoves = function(e) {
   switch (e.keyCode) {
     case this.keyCodes.top:
-
+      this.playerMaze.movePlayerTop();
       break;
     case this.keyCodes.right:
-
+      this.playerMaze.movePlayerRight();
       break;
     case this.keyCodes.bottom:
-
+      this.playerMaze.movePlayerBottom();
       break;
     case this.keyCodes.left:
-
+      this.playerMaze.movePlayerLeft();
       break;
   }
 };
