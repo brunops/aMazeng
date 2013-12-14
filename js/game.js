@@ -10,12 +10,15 @@ Game.prototype.init = function() {
     left:   37
   };
 
-  this.mazeSize = 20;
+  this.mazeSize = 15;
 
   this.playerMaze = new Maze(this.mazeSize);
   this.enemyMaze = new Maze(this.mazeSize);
 
   this.bindEvents();
+
+  this.renderPlayerMaze();
+  this.renderEnemyMaze();
 };
 
 Game.prototype.bindEvents = function() {
@@ -48,5 +51,5 @@ Game.prototype.renderPlayerMaze = function() {
 
 Game.prototype.renderEnemyMaze = function() {
   $('#enemy .maze').remove();
-  $('#enemy').append(this.playerMaze.render());
+  $('#enemy').append(this.enemyMaze.render());
 };
