@@ -1,5 +1,3 @@
-// var _ = require('underscore');
-
 var WALLS = {
   0: 'TOP',
   1: 'RIGHT',
@@ -68,7 +66,7 @@ Maze.prototype.dfs = function(row, col) {
 
         // remove walls between cells
         if (!nextCell.explored) {
-          currentCell['TOP'] = false;
+          currentCell.walls['TOP'] = false;
           nextCell.walls['BOTTOM'] = false;
 
           this.dfs(row - 1, col);
@@ -82,7 +80,7 @@ Maze.prototype.dfs = function(row, col) {
 
         // remove walls between cells
         if (!nextCell.explored) {
-          currentCell['RIGHT'] = false;
+          currentCell.walls['RIGHT'] = false;
           nextCell.walls['LEFT'] = false;
 
           this.dfs(row, col + 1);
@@ -96,7 +94,7 @@ Maze.prototype.dfs = function(row, col) {
 
         // remove walls between cells
         if (!nextCell.explored) {
-          currentCell['BOTTOM'] = false;
+          currentCell.walls['BOTTOM'] = false;
           nextCell.walls['TOP'] = false;
 
           this.dfs(row + 1, col);
@@ -110,7 +108,7 @@ Maze.prototype.dfs = function(row, col) {
 
         // remove walls between cells
         if (!nextCell.explored) {
-          currentCell['LEFT'] = false;
+          currentCell.walls['LEFT'] = false;
           nextCell.walls['RIGHT'] = false;
 
           this.dfs(row, col - 1);
