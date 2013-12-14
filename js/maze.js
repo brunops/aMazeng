@@ -180,3 +180,7 @@ Maze.prototype.movePlayerLeft = function() {
     this.setPlayerPosition(this.playerRowPos, this.playerColPos - 1);
   }
 };
+
+Maze.prototype.isWinner = function() {
+  return this.playerRowPos === this.size - 1 && this.playerColPos === this.size - 1;
+};
