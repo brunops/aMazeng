@@ -15,6 +15,8 @@ Game.prototype.init = function() {
   this.playerMaze = new Maze(this.mazeSize);
   this.enemyMaze = new Maze(this.mazeSize);
 
+  this.socket = io.connect('http://localhost:3000');
+
   this.bindEvents();
 
   this.renderPlayerMaze();
@@ -22,22 +24,53 @@ Game.prototype.init = function() {
 };
 
 Game.prototype.bindEvents = function() {
+  var game = this;
+
   $(document).on('keydown', this.handlePlayerMoves.bind(this));
+
+  this.socket.on('enemy-move', function(data) {
+    console.log(data)
+
+    switch (data.move) {
+      case 'TOP':
+        game.enemyMaze.movePlayerTop();
+        break;
+      case 'RIGHT':
+        game.enemyMaze.movePlayerRight();
+        break;
+      case 'BOTTOM':
+        game.enemyMaze.movePlayerBottom();
+        break;
+      case 'LEFT':
+        game.enemyMaze.movePlayerLeft();
+        break;
+    }
+
+    game.renderEnemyMaze();
+  });
 };
 
 Game.prototype.handlePlayerMoves = function(e) {
   switch (e.keyCode) {
     case this.keyCodes.top:
+      e.preventDefault();
       this.playerMaze.movePlayerTop();
+      this.socket.emit('enemy-move', { move: 'TOP' });
       break;
     case this.keyCodes.right:
+      e.preventDefault();
       this.playerMaze.movePlayerRight();
+      this.socket.emit('enemy-move', { move: 'RIGHT' });
       break;
     case this.keyCodes.bottom:
+      e.preventDefault();
       this.playerMaze.movePlayerBottom();
+      this.socket.emit('enemy-move', { move: 'BOTTOM' });
       break;
     case this.keyCodes.left:
+      e.preventDefault();
       this.playerMaze.movePlayerLeft();
+      this.socket.emit('enemy-move', { move: 'LEFT' });
       break;
   }
 
