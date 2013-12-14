@@ -6,6 +6,7 @@
   <script src="js/lib/jquery.js"></script>
   <script src="js/lib/underscore.js"></script>
   <script src="js/maze.js"></script>
+  <script src="js/game.js"></script>
 
   <style>
     table {
@@ -33,6 +34,10 @@
     td.left {
       border-left: 1px solid black;
     }
+
+    .player {
+      background: red;
+    }
   </style>
 </head>
 <body>
@@ -41,30 +46,7 @@
   <script>
 
   $(function() {
-    var size = 20;
-    var mazeModel = new Maze(size);
-    var maze = $('<table class="maze"></table>');
-
-    for (var i = 0; i < size; ++i) {
-      var row = $('<tr></tr>');
-
-      for (var j = 0; j < size; ++j) {
-        var cell  = $('<td></td>');
-
-        _.each(mazeModel.maze[i][j].walls, function(val, key) {
-          if (val) {
-            cell.addClass(key.toLowerCase());
-          }
-        });
-
-        row.append(cell);
-      }
-
-      maze.append(row);
-    }
-
-    $('body').append(maze);
-
+    new Game();
   });
 
   </script>
