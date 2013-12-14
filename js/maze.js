@@ -132,13 +132,13 @@ Maze.prototype.setPlayerPosition = function(row, col) {
 Maze.prototype.render = function() {
   var maze = $('<table class="maze"></table>');
 
-  for (var i = 0; i < this.mazeSize; ++i) {
+  for (var i = 0; i < this.size; ++i) {
     var row = $('<tr></tr>');
 
-    for (var j = 0; j < this.mazeSize; ++j) {
+    for (var j = 0; j < this.size; ++j) {
       var cell  = $('<td></td>');
 
-      _.each(this.maze.maze[i][j].walls, function(val, key) {
+      _.each(this.maze[i][j].walls, function(val, key) {
         if (val) {
           cell.addClass(key.toLowerCase());
         }

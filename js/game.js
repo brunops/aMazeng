@@ -37,10 +37,16 @@ Game.prototype.handlePlayerMoves = function(e) {
       this.playerMaze.movePlayerLeft();
       break;
   }
+
+  this.renderPlayerMaze();
 };
 
-Game.prototype.render = function() {
-  $('.maze').empty();
+Game.prototype.renderPlayerMaze = function() {
+  $('#player .maze').remove();
+  $('#player').append(this.playerMaze.render());
+};
 
-  $('body').append(maze);
+Game.prototype.renderEnemyMaze = function() {
+  $('#enemy .maze').remove();
+  $('#enemy').append(this.playerMaze.render());
 };
