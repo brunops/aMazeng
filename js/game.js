@@ -18,8 +18,6 @@ Game.prototype.init = function() {
   };
 };
 
-
-
 Game.prototype.bindEvents = function() {
   $(document).on('keydown', this.handlePlayerMoves.bind(this));
 };
@@ -27,28 +25,16 @@ Game.prototype.bindEvents = function() {
 Game.prototype.handlePlayerMoves = function(e) {
   switch (e.keyCode) {
     case this.keyCodes.top:
-      if (this.maze.maze[this.playerRowPos][this.playerColPos].walls['TOP'] === false) {
-        this.setPlayerPosition(this.playerRowPos - 1, this.playerColPos);
-        this.render();
-      }
+
       break;
     case this.keyCodes.right:
-      if (this.maze.maze[this.playerRowPos][this.playerColPos].walls['RIGHT'] === false) {
-        this.setPlayerPosition(this.playerRowPos, this.playerColPos + 1);
-        this.render();
-      }
+
       break;
     case this.keyCodes.bottom:
-      if (this.maze.maze[this.playerRowPos][this.playerColPos].walls['BOTTOM'] === false) {
-        this.setPlayerPosition(this.playerRowPos + 1, this.playerColPos);
-        this.render();
-      }
+
       break;
     case this.keyCodes.left:
-      if (this.maze.maze[this.playerRowPos][this.playerColPos].walls['LEFT'] === false) {
-        this.setPlayerPosition(this.playerRowPos, this.playerColPos - 1);
-        this.render();
-      }
+
       break;
   }
 };

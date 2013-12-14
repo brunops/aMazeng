@@ -157,4 +157,26 @@ Maze.prototype.render = function() {
   return maze;
 };
 
+Maze.prototype.movePlayerTop = function() {
+  if (this.maze.maze[this.playerRowPos][this.playerColPos].walls['TOP'] === false) {
+    this.setPlayerPosition(this.playerRowPos - 1, this.playerColPos);
+  }
+};
 
+Maze.prototype.movePlayerRight = function() {
+  if (this.maze.maze[this.playerRowPos][this.playerColPos].walls['RIGHT'] === false) {
+    this.setPlayerPosition(this.playerRowPos, this.playerColPos + 1);
+  }
+};
+
+Maze.prototype.movePlayerBottom = function() {
+  if (this.maze.maze[this.playerRowPos][this.playerColPos].walls['BOTTOM'] === false) {
+    this.setPlayerPosition(this.playerRowPos + 1, this.playerColPos);
+  }
+};
+
+Maze.prototype.movePlayerLeft = function() {
+  if (this.maze[this.playerRowPos][this.playerColPos].walls['LEFT'] === false) {
+    this.setPlayerPosition(this.playerRowPos, this.playerColPos - 1);
+  }
+};
