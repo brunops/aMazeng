@@ -22,13 +22,20 @@ Cell.prototype.init = function() {
 
 // ----------------------------------------------------
 
-function Maze(size) {
-  this.init(size);
+function Maze(size, maze) {
+  this.init(size, maze);
 }
 
-Maze.prototype.init = function(size) {
-  this.size = size;
-  this.generateMaze();
+Maze.prototype.init = function(size, maze) {
+  if (maze) {
+
+    this.maze = maze.maze;
+    this.size = maze.size;
+  }
+  else {
+    this.size = size;
+    this.generateMaze();
+  }
 
   this.setPlayerPosition(0, 0);
 };

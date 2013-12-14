@@ -13,7 +13,7 @@ Game.prototype.init = function() {
   this.mazeSize = 15;
 
   this.playerMaze = new Maze(this.mazeSize);
-  this.enemyMaze = new Maze(this.mazeSize);
+  this.enemyMaze = new Maze(this.mazeSize, this.playerMaze);
 
   this.socket = io.connect('http://localhost:3000');
 
