@@ -6,9 +6,9 @@ Game.prototype.init = function() {
   this.mazeSize = 20;
   this.maze = new Maze(this.mazeSize);
 
-  this.setPlayerPosition(0, 0);
+
   this.bindEvents();
-  this.render();
+
 
   this.keyCodes = {
     top:    38,
@@ -18,10 +18,7 @@ Game.prototype.init = function() {
   };
 };
 
-Game.prototype.setPlayerPosition = function(row, col) {
-  this.playerRowPos = row;
-  this.playerColPos = col;
-};
+
 
 Game.prototype.bindEvents = function() {
   $(document).on('keydown', this.handlePlayerMoves.bind(this));
@@ -58,30 +55,6 @@ Game.prototype.handlePlayerMoves = function(e) {
 
 Game.prototype.render = function() {
   $('.maze').empty();
-
-  var maze = $('<table class="maze"></table>');
-
-  for (var i = 0; i < this.mazeSize; ++i) {
-    var row = $('<tr></tr>');
-
-    for (var j = 0; j < this.mazeSize; ++j) {
-      var cell  = $('<td></td>');
-
-      _.each(this.maze.maze[i][j].walls, function(val, key) {
-        if (val) {
-          cell.addClass(key.toLowerCase());
-        }
-      });
-
-      if (this.playerRowPos === i && this.playerColPos === j) {
-        cell.addClass('player');
-      }
-
-      row.append(cell);
-    }
-
-    maze.append(row);
-  }
 
   $('body').append(maze);
 };

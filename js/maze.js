@@ -29,6 +29,8 @@ function Maze(size) {
 Maze.prototype.init = function(size) {
   this.size = size;
   this.generateMaze();
+
+  this.setPlayerPosition(0, 0);
 };
 
 Maze.prototype.generateMaze = function() {
@@ -121,4 +123,38 @@ Maze.prototype.dfs = function(row, col) {
 Maze.prototype.getRandomOrder = function() {
   return _.shuffle([0, 1, 2, 3]);
 };
+
+Maze.prototype.setPlayerPosition = function(row, col) {
+  this.playerRowPos = row;
+  this.playerColPos = col;
+};
+
+Maze.prototype.render = function() {
+  var maze = $('<table class="maze"></table>');
+
+  for (var i = 0; i < this.mazeSize; ++i) {
+    var row = $('<tr></tr>');
+
+    for (var j = 0; j < this.mazeSize; ++j) {
+      var cell  = $('<td></td>');
+
+      _.each(this.maze.maze[i][j].walls, function(val, key) {
+        if (val) {
+          cell.addClass(key.toLowerCase());
+        }
+      });
+
+      if (this.playerRowPos === i && this.playerColPos === j) {
+        cell.addClass('player');
+      }
+
+      row.append(cell);
+    }
+
+    maze.append(row);
+  }
+
+  return maze;
+};
+
 
