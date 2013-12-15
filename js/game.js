@@ -12,15 +12,9 @@ Game.prototype.init = function() {
 
   this.mazeSize = 10;
 
-  // this.playerMaze = new Maze(this.mazeSize);
-  // this.enemyMaze = new Maze(this.mazeSize, this.playerMaze);
-
   this.socket = io.connect('http://localhost:3000');
 
   this.bindEvents();
-
-  // this.renderPlayerMaze();
-  // this.renderEnemyMaze();
 };
 
 Game.prototype.bindEvents = function() {
@@ -62,12 +56,6 @@ Game.prototype.bindEvents = function() {
       console.log('enemy maze defined');
     });
   });
-
-
-  // this.socket.on('get-maze', function() {
-  //   console.log('request for maze received => "get-maze" event, emitting "maze"');
-  //   this.socket.emit('maze', { maze: game.playerMaze });
-  // });
 
   this.socket.on('define-maze', function(data) {
     console.log('"define-maze" event received');
@@ -125,11 +113,11 @@ Game.prototype.handlePlayerMoves = function(e) {
 };
 
 Game.prototype.renderPlayerMaze = function() {
-  $('#player .maze').remove();
+  $('#player').empty();
   $('#player').append(this.playerMaze.render());
 };
 
 Game.prototype.renderEnemyMaze = function() {
-  $('#enemy .maze').remove();
+  $('#enemy').empty();
   $('#enemy').append(this.enemyMaze.render());
 };
