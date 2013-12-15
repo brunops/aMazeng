@@ -6,7 +6,6 @@ var nextRoom = [];
 io.sockets.on('connection', function(socket) {
   var gameIndex = games.length;
   var enemySocketId;
-  // var maze;
 
   nextRoom.push(socket.id);
 
@@ -18,9 +17,7 @@ io.sockets.on('connection', function(socket) {
     enemySocketId = enemySocketId || getEnemyFromRoom(games[gameIndex], socket.id);
     var enemySocket = io.sockets.socket(enemySocketId);
 
-    enemySocket.emit('enemy-connected', {}, function(data) {
-
-    });
+    enemySocket.emit('enemy-connected');
   }
 
   console.log(games);
@@ -51,9 +48,12 @@ io.sockets.on('connection', function(socket) {
     console.log('Socket id ' + socket.id + ' disconnected, send msg to socket ' + enemySocketId);
 
     io.sockets.socket(enemySocketId).emit('won', { end: 'won' });
+
+    games.splice(gameIndex, 1);
   });
 });
 
 function getEnemyFromRoom(room, playerSocketId) {
+  if (!room) return;
   return room[0] === playerSocketId ? room[1] : room[0];
 }

@@ -10,6 +10,7 @@ Game.prototype.init = function() {
     left:   37
   };
 
+  this.isRunning = false;
   this.mazeSize = 10;
 
   this.socket = io.connect('http://localhost:3000');
@@ -23,8 +24,6 @@ Game.prototype.bindEvents = function() {
   $(document).on('keydown', this.handlePlayerMoves.bind(this));
 
   this.socket.on('enemy-move', function(data) {
-    console.log(data)
-
     switch (data.move) {
       case 'TOP':
         game.enemyMaze.movePlayerTop();
@@ -55,6 +54,8 @@ Game.prototype.bindEvents = function() {
     game.socket.emit('maze-defined', { maze: game.playerMaze }, function(data) {
       console.log('enemy maze defined');
     });
+
+    game.isRunning = true;
   });
 
   this.socket.on('define-maze', function(data) {
@@ -63,31 +64,35 @@ Game.prototype.bindEvents = function() {
     var maze = data.maze,
         mazeSize = maze.maze[0].length;
 
-    console.log('define maze => ' + JSON.stringify(maze));
-    console.log('maze size => ' + mazeSize);
-
-
     game.playerMaze = new Maze(mazeSize, maze);
     game.enemyMaze = new Maze(mazeSize, maze);
 
     game.renderPlayerMaze();
     game.renderEnemyMaze();
 
-    console.log('rendered!')
+    game.isRunning = true;
   });
 
   this.socket.on('won', function() {
-    console.log('won');
+    if (!game.isRunning) return;
+
+    game.isRunning = false;
+    $('body').prepend(game.getPlayAgainMsg());
     $('body').prepend('<p>You won!</p>');
   });
 
   this.socket.on('lost', function() {
-    console.log('lost');
+    if (!game.isRunning) return;
+
+    game.isRunning = false;
+    $('body').prepend(game.getPlayAgainMsg());
     $('body').prepend('<p>You lost!</p>');
   });
 };
 
 Game.prototype.handlePlayerMoves = function(e) {
+  if (!this.isRunning) return;
+
   switch (e.keyCode) {
     case this.keyCodes.top:
       e.preventDefault();
@@ -115,6 +120,9 @@ Game.prototype.handlePlayerMoves = function(e) {
 
   if (this.playerMaze.isWinner()) {
     this.socket.emit('won');
+    this.isRunning = false;
+    $('body').prepend(this.getPlayAgainMsg());
+    $('body').prepend('<p>You won!</p>');
   }
 };
 
@@ -126,4 +134,17 @@ Game.prototype.renderPlayerMaze = function() {
 Game.prototype.renderEnemyMaze = function() {
   $('#enemy').empty();
   $('#enemy').append(this.enemyMaze.render());
+};
+
+Game.prototype.getPlayAgainMsg = function() {
+  var game = this;
+  var playAgain = $('<p><a href="#">Click here to play again!</a></p>');
+
+  // Reconnect
+  playAgain.on('click', function() {
+    game.socket.emit('disconnect');
+    location.reload();
+  });
+
+  return playAgain;
 };
