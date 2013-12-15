@@ -77,16 +77,14 @@ Game.prototype.bindEvents = function() {
     if (!game.isRunning) return;
 
     game.isRunning = false;
-    $('body').prepend(game.getPlayAgainMsg());
-    $('body').prepend('<p>You won!</p>');
+    $('h1').after($('<p class="you-won">You won!</p>').append(this.getPlayAgainMsg()));
   });
 
   this.socket.on('lost', function() {
     if (!game.isRunning) return;
 
     game.isRunning = false;
-    $('body').prepend(game.getPlayAgainMsg());
-    $('body').prepend('<p>You lost!</p>');
+    $('h1').after($('<p class="you-lost">You lost!</p>').append(game.getPlayAgainMsg()));
   });
 };
 
@@ -121,8 +119,7 @@ Game.prototype.handlePlayerMoves = function(e) {
   if (this.playerMaze.isWinner()) {
     this.socket.emit('won');
     this.isRunning = false;
-    $('body').prepend(this.getPlayAgainMsg());
-    $('body').prepend('<p>You won!</p>');
+    $('h1').after($('<p class="you-won">You won!</p>').append(this.getPlayAgainMsg()));
   }
 };
 
