@@ -27,13 +27,12 @@ function Maze(size, maze) {
 }
 
 Maze.prototype.init = function(size, maze) {
-  if (maze) {
+  this.size = size;
 
+  if (maze) {
     this.maze = maze.maze;
-    this.size = maze.size;
   }
   else {
-    this.size = size;
     this.generateMaze();
   }
 
@@ -138,6 +137,8 @@ Maze.prototype.setPlayerPosition = function(row, col) {
 
 Maze.prototype.render = function() {
   var maze = $('<table class="maze"></table>');
+
+  console.log(this.size)
 
   for (var i = 0; i < this.size; ++i) {
     var row = $('<tr></tr>');
