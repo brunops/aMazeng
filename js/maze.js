@@ -138,8 +138,6 @@ Maze.prototype.setPlayerPosition = function(row, col) {
 Maze.prototype.render = function() {
   var maze = $('<table class="maze"></table>');
 
-  console.log(this.size)
-
   for (var i = 0; i < this.size; ++i) {
     var row = $('<tr></tr>');
 
