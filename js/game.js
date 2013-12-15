@@ -23,6 +23,10 @@ Game.prototype.bindEvents = function() {
 
   $(document).on('keydown', this.handlePlayerMoves.bind(this));
 
+  $(window).unload(function() {
+    game.socket.emit('disconnect');
+  });
+
   this.socket.on('enemy-move', function(data) {
     switch (data.move) {
       case 'TOP':
