@@ -55,7 +55,7 @@
     }
 
     #player.player-maze {
-      margin-right: 150px;
+      margin-right: 50px;
     }
 
     #enemy .player {
@@ -120,8 +120,18 @@
   <h1>a<span class="highlight">Maze</span>ng</h1>
 
   <div class="mazes">
-    <div id="player" class="player-maze">Waiting for enemy to connect...</div>
-    <div id="enemy" class="player-maze"></div>
+    <div id="player" class="player-maze">
+      <h3>You</h3>
+      <div class="maze-content">
+        Waiting for enemy to connect...
+      </div>
+    </div>
+    <div id="enemy" class="player-maze">
+      <h3>Enemy</h3>
+      <div class="maze-content">
+        Waiting for enemy to connect...
+      </div>
+    </div>
   </div>
 
 </body>

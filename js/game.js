@@ -128,13 +128,13 @@ Game.prototype.handlePlayerMoves = function(e) {
 };
 
 Game.prototype.renderPlayerMaze = function() {
-  $('#player').empty();
-  $('#player').append(this.playerMaze.render());
+  $('#player .maze-content').empty();
+  $('#player .maze-content').append(this.playerMaze.render());
 };
 
 Game.prototype.renderEnemyMaze = function() {
-  $('#enemy').empty();
-  $('#enemy').append(this.enemyMaze.render());
+  $('#enemy .maze-content').empty();
+  $('#enemy .maze-content').append(this.enemyMaze.render());
 };
 
 Game.prototype.getPlayAgainMsg = function() {
