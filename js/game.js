@@ -13,7 +13,7 @@ Game.prototype.init = function() {
   this.isRunning = false;
   this.mazeSize = 10;
 
-  this.socket = io.connect('http://localhost:3000');
+  this.socket = io.connect(window.location.origin);
 
   this.bindEvents();
 };
