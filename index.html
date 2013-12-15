@@ -12,6 +12,10 @@
   <script src="js/game.js"></script>
 
   <style>
+    body {
+      background: #f2f2f2;
+    }
+
     table {
       border-spacing: 0;
     }
@@ -50,13 +54,35 @@
       background: blue;
     }
 
+    #player.player-maze {
+      margin-right: 150px;
+    }
+
     #enemy .player {
       background: red;
     }
 
+    #enemy .player {
+      right: 0;
+    }
+
     .player-maze {
       display: inline-block;
-      margin-left: 100px;
+    }
+
+    .mazes {
+      margin: 0 auto;
+      width: 80%;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+    }
+
+    .highlight {
+      font-size: 46px;
+      color: #08c;
     }
   </style>
 </head>
@@ -67,8 +93,12 @@
     });
   </script>
 
-  <div id="player" class="player-maze">Waiting for enemy to connect...</div>
-  <div id="enemy" class="player-maze"></div>
+  <h1>a<span class="highlight">Maze</span>ng</h1>
+
+  <div class="mazes">
+    <div id="player" class="player-maze">Waiting for enemy to connect...</div>
+    <div id="enemy" class="player-maze"></div>
+  </div>
 
 </body>
 </html>
