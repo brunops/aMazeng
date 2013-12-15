@@ -18,10 +18,6 @@ io.sockets.on('connection', function(socket) {
     enemySocketId = enemySocketId || getEnemyFromRoom(games[gameIndex], socket.id);
     var enemySocket = io.sockets.socket(enemySocketId);
 
-    // enemySocket.emit('get-maze', {}, function(data) {
-    //   socket.emit('define-maze', { maze: data.maze });
-    // });
-
     enemySocket.emit('enemy-connected', {}, function(data) {
 
     });
@@ -40,6 +36,12 @@ io.sockets.on('connection', function(socket) {
     enemySocketId = enemySocketId || getEnemyFromRoom(games[gameIndex], socket.id);
 
     io.sockets.socket(enemySocketId).emit('enemy-move', data);
+  });
+
+  socket.on('won', function(data) {
+    enemySocketId = enemySocketId || getEnemyFromRoom(games[gameIndex], socket.id);
+
+    io.sockets.socket(enemySocketId).emit('lost', { end: 'lost' });
   });
 
   socket.on('disconnect', function() {

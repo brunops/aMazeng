@@ -78,10 +78,12 @@ Game.prototype.bindEvents = function() {
 
   this.socket.on('won', function() {
     console.log('won');
+    $('body').prepend('<p>You won!</p>');
   });
 
   this.socket.on('lost', function() {
     console.log('lost');
+    $('body').prepend('<p>You lost!</p>');
   });
 };
 
@@ -110,6 +112,10 @@ Game.prototype.handlePlayerMoves = function(e) {
   }
 
   this.renderPlayerMaze();
+
+  if (this.playerMaze.isWinner()) {
+    this.socket.emit('won');
+  }
 };
 
 Game.prototype.renderPlayerMaze = function() {
