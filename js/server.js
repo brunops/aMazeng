@@ -10,7 +10,7 @@ var server = http.createServer(function(req, res) {
   send(req, req.url).root(__dirname + '/..').pipe(res);
 });
 
-server.listen(3000);
+server.listen(process.env.PORT || 3000);
 var io = sio.listen(server);
 
 io.sockets.on('connection', function(socket) {
